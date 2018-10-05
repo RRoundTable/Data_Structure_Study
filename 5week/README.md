@@ -1,4 +1,6 @@
-구성요소
+### 구성요소
+
+
 	• Factory.py 
 		○ Variable : breakProb, waitingProduct, completeProduct
 		○ selectLine() : 2개의 라인 중에서 더 빠른 라인을 선택한다.
