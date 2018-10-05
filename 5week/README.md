@@ -1,6 +1,15 @@
 ### 구성요소
 
 
+#### check list
+- 왜 line별로 Queue와 Stack를 따로 썻는가? 선입선출법과 후입선출법을 비교하기 위해서
+
+- matCost와 matShortestCost의 관계는? matCost는 processes[row][col].getSize()로 구하며, matShortestCost는 matcost에 이전 matShortestCost의 영향을 받는다.
+
+- cross over가 안된다 : 라인이 독립적으로 운영된다.
+
+
+#### class
 	• Factory.py 
 		○ Variable : breakProb, waitingProduct, completeProduct
 		○ selectLine() : 2개의 라인 중에서 더 빠른 라인을 선택한다.
