@@ -1,6 +1,7 @@
 # Data_Structure_Study
 자료구조 및 알고리즘 실습문제 풀이
 
+### 4 Week : Dynamic Programming
 
 ### 5 Week : Dynamic Programming
 
