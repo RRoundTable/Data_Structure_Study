@@ -11,7 +11,9 @@
 
 ### 6 Week : ?????
 
+- binary tree search
 
+tree 구조에 대한 
 
 
 ### 7 Week : ????? 
