@@ -119,8 +119,42 @@ class BinarySearchTree:
             return node
         return self.findMin(node.getLHS())
 
-    def traverseLevelOrder(self):
-        pass
+
+
 
     def traverseInOrder(self, node=""):
-        pass
+        # 작은 것부터 큰거 순으로 나열한다
+        if node=="":
+            node=self.root
+        ret=[] # 나열하는 값
+        if node.getLHS() !="": # LHS가 존재한다면
+            ret=ret+self.traverseInOrder(node.getLHS())
+        ret.apppend(node.getValue())
+        if node.getRHS()!="":
+            ret=ret+self.traverseInOrder(node.getRHS())
+        #ret.append(node.getValue())
+        return ret
+
+    def traversePreOrder(self, node=""):
+        # 위에서 부터 LHS -> RHS
+        if node=="":
+            node=self.root
+        ret=[]
+        ret.apppend(node.getValue())
+        if node.getLHS() !="": # LHS가 존재한다면
+            ret=ret+self.traverseInOrder(node.getLHS())
+        if node.getRHS()!="":
+            ret=ret+self.traverseInOrder(node.getRHS())
+
+        return ret
+
+    def traversePostOrder(self, node=""):
+        if node=="":
+            node=self.root
+        ret=[]
+        if node.getLHS() !="": # LHS가 존재한다면
+            ret=ret+self.traverseInOrder(node.getLHS())
+        if node.getRHS()!="":
+            ret=ret+self.traverseInOrder(node.getRHS())
+        ret.apppend(node.getValue())
+        return ret
