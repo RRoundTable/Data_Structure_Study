@@ -1,4 +1,7 @@
 
+
+
+
 class Node:
     nodeNext=""
     value=""
@@ -52,7 +55,6 @@ class SinglyLinkedList:
 
     def removeAt(self, idxRemove):
         nodeRemove=self.get(idxRemove)
-
         nodePrev=self.get(idxRemove-1)
         nodeNext=nodeRemove.getNext()
 
