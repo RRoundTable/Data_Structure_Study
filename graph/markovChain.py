@@ -33,7 +33,7 @@ def next_state(chain, current_state):
     return next_state
 
 
-
+# generator
 def iterating_markov_chain(chain, state):
 
     while True:
