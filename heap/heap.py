@@ -25,9 +25,9 @@ class heap:
         self.queue[y]=temp
 
     def delete(self):
-        self.swap(0,len(self.queue)-1) # 마지막 원소와 root를 바꿔준다
+        self.swap(1,len(self.queue)-1) # 마지막 원소와 root를 바꿔준다
         self.queue.pop(len(self.queue)-1)
-        self.heapify(0)
+        self.heapify(1)
 
     def leftchild(self,index):
         return index*2
@@ -53,3 +53,7 @@ minheap=heap()
 for _ in range(10):
     minheap.insert(random.randint(1,50))
 print(minheap.queue)
+
+for _ in range(10):
+    minheap.delete()
+    print(minheap.queue)
