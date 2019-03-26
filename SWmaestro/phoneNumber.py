@@ -17,7 +17,6 @@
 010-2222-2222
 
 로 중복되는 것을 합쳐서 내보내게 업데이트하려고 한다. 구현하라
-
 """
 from collections import deque
 from collections import Counter
@@ -56,18 +55,16 @@ print(phoneNumber(array))
 print("que :, ",len(Counter(array)))
 
 def phone2(array):
-    count=[]
 
+    count=[]
     result=[]
-    for ele in array:
-        count.append(ele)
-        if len(Counter(count))>1:
-            print(Counter(count).items())
-            result.append(list(Counter(count).items())[0])
-            count=[]
-    result.append(Counter(count))
+    j=0
+    for i in range(len(array)-1):
+        if array[i]!=array[i+1]:
+            result.append((array[j],len(array[j:i+1])))
+            j=i+1
+    result.append((array[j],len(array[j:])))
 
     return result
-
 
 print(phone2(array))

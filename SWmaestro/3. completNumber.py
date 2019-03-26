@@ -27,7 +27,7 @@ def completeNumber(n):
          # i는 숫자
 
         divisor=[]  # 약수
-        for j in range(1,int(i/2)+1):
+        for j in range(1,int(i/2)+1): # 해당 숫자의 반 정도까지만
             if i%(j)==0: # j는 i의 약수
 
                 divisor.append(j) # 약수 추가
