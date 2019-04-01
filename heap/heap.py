@@ -1,10 +1,11 @@
 import random
 
-class heap:
+class Heap:
     """ Min heap"""
 
     def __init__(self):
         self.queue=[None]
+
     def parent(self, index):
         return int(index/2)
 
@@ -47,13 +48,10 @@ class heap:
             self.swap(i, smallest)
             self.heapify(smallest)
 
-
-
-minheap=heap()
-for _ in range(10):
+minheap=Heap()
+for _ in range(100):
     minheap.insert(random.randint(1,50))
-print(minheap.queue)
 
+print(minheap.queue)
 for _ in range(10):
     minheap.delete()
-    print(minheap.queue)
