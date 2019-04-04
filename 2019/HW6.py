@@ -53,7 +53,6 @@ class Shop:
         self.queue.append(Cust)
 
     def outCust(self, currTime):
-
         while currTime >= self.queue[0].outTime:
             self.queue.pop(0)
             if len(self.queue) == 0:
@@ -69,9 +68,14 @@ def main(lunchTime = False, employee = 1):
     len_queue = []
     lamda = 1
     if lunchTime == True:
-        if currTime >= 4 * 60 and currTime <= 6 * 60:
-            lamda = 2
-    intervals = np.random.exponential(lamda, 1000000)
+        intervals = np.random.exponential(lamda, 1000000)
+        arriveTimes = np.cumsum(intervals)
+        for idx in range(len(arriveTimes)):
+            if  arriveTimes[idx] >= 4 * 60 and arriveTimes[idx] <= 6 * 60:
+                lamda = 2
+                intervals[idx] = np.random.exponential(lamda, 1)
+    else:
+        intervals = np.random.exponential(lamda, 1000000)
     arriveTimes = np.cumsum(intervals)
     for arriveTime in arriveTimes:
         if arriveTime >= 14 * 60:
@@ -89,12 +93,22 @@ def main(lunchTime = False, employee = 1):
                 Cust.outTime = Cust.orderTime + cookTime
         coffeShop.entCust(Cust)
         coffeShop.outCust(currTime)
-        currTime += 1
+        currTime = arriveTime
         len_queue.append(len(coffeShop.queue))
     return max(len_queue)
 
-for i in range(10):
-    print("###########################################################")
-    print("basic : {}".format(main(lunchTime = False, employee = 1)))
-    print("lunch : {}".format(main(lunchTime = True, employee = 1)))
-    print("2 employee : {}".format(main(lunchTime = False, employee = 2)))
+
+def result(iter = 100):
+    basic =[]
+    lunch = []
+    employee2 =[]
+    for i in range(iter):
+        basic.append(main(lunchTime = False, employee = 1))
+        lunch.append(main(lunchTime = True, employee = 1))
+        employee2.append(main(lunchTime = False, employee = 2))
+    basic_mean = np.mean(basic)
+    lunch_mean = np.mean(lunch)
+    employee2_mean = np.mean(employee2)
+    print("basic : {} lunch : {} employee2 : {}".format(basic_mean, lunch_mean, employee2_mean))
+
+result(100)
