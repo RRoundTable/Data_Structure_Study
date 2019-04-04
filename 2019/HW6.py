@@ -72,7 +72,7 @@ def main(lunchTime = False, employee = 1):
         arriveTimes = np.cumsum(intervals)
         for idx in range(len(arriveTimes)):
             if  arriveTimes[idx] >= 4 * 60 and arriveTimes[idx] <= 6 * 60:
-                lamda = 2
+                lamda = 0.5
                 intervals[idx] = np.random.exponential(lamda, 1)
     else:
         intervals = np.random.exponential(lamda, 1000000)
@@ -105,7 +105,7 @@ def result(iter = 100):
     for i in range(iter):
         basic.append(main(lunchTime = False, employee = 1))
         lunch.append(main(lunchTime = True, employee = 1))
-        employee2.append(main(lunchTime = False, employee = 2))
+        employee2.append(main(lunchTime = False, employee = 3))
     basic_mean = np.mean(basic)
     lunch_mean = np.mean(lunch)
     employee2_mean = np.mean(employee2)
