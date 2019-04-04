@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import random
 
 class Queue:
     def __init__(self):
@@ -52,41 +53,48 @@ class Shop:
         self.queue.append(Cust)
 
     def outCust(self, currTime):
-        if currTime >= self.queue[0].outTime:
-            return self.queue.pop(0)
+
+        while currTime >= self.queue[0].outTime:
+            self.queue.pop(0)
+            if len(self.queue) == 0:
+                break
 
     def getLast(self):
         return self.queue[-1]
 
-
-coffeShop = Shop()
-currTime = 0
-cookTime = 1
-
-while currTime <= 14 * 80:
-    interval = np.random.exponential(1, 1)
-    arriveTime = currTime + interval
-    Cust = Customer(arriveTime)
-
-    if len(coffeShop.queue) == 0: # queue에 대기 손님이 없을 때
-        Cust.orderTime = Cust.arriveTime
-        Cust.outTime = Cust.orderTime + cookTime
-    else:
-        if coffeShop.queue[0].outTime > Cust.arriveTime:
-            Cust.orderTime = coffeShop.queue[0].outTime
-            Cust.outTime = Cust.orderTime + cookTime
-        else:
+def main(lunchTime = False, employee = 1):
+    coffeShop = Shop()
+    currTime = 0
+    cookTime = 1
+    len_queue = []
+    lamda = 1
+    if lunchTime == True:
+        if currTime >= 4 * 60 and currTime <= 6 * 60:
+            lamda = 2
+    intervals = np.random.exponential(lamda, 1000000)
+    arriveTimes = np.cumsum(intervals)
+    for arriveTime in arriveTimes:
+        if arriveTime >= 14 * 60:
+            break
+        Cust = Customer(arriveTime)
+        if len(coffeShop.queue) <= employee - 1:
             Cust.orderTime = Cust.arriveTime
             Cust.outTime = Cust.orderTime + cookTime
+        else:
+            if coffeShop.queue[0].outTime > Cust.arriveTime:
+                Cust.orderTime = coffeShop.queue[0].outTime + 1
+                Cust.outTime = Cust.orderTime + cookTime
+            else:
+                Cust.orderTime = Cust.arriveTime
+                Cust.outTime = Cust.orderTime + cookTime
+        coffeShop.entCust(Cust)
+        coffeShop.outCust(currTime)
+        currTime += 1
+        len_queue.append(len(coffeShop.queue))
+    return max(len_queue)
 
-
-    coffeShop.entCust(Cust)
-    coffeShop.outCust(currTime)
-    print("queue의 길이 : {}".format(len(coffeShop.queue)))
-    currTime += 1
-
-
-# 큐의 최대 대기인원 : 9명
-# 시간대 별로 도착시간 분포를 조정해 보세요
-# 주문을 두 명이서 받는다면?
-
+for i in range(10):
+    print("###########################################################")
+    print("basic : {}".format(main(lunchTime = False, employee = 1)))
+    print("lunch : {}".format(main(lunchTime = True, employee = 1)))
+    print("2 employee : {}".format(main(lunchTime = False, employee = 2)))
