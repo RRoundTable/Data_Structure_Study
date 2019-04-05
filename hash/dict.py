@@ -51,7 +51,7 @@ class HashMap:
 
     def add(self, key, val):
         self.maps.add(key, val)
-        
+
     def get(self, key):
         return self.maps.get(key)
 
