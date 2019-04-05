@@ -94,7 +94,7 @@ def main(lunchTime = False, employee = 1):
         coffeShop.entCust(Cust)
         coffeShop.outCust(currTime)
         currTime = arriveTime
-        len_queue.append(len(coffeShop.queue))
+        len_queue.append(len(coffeShop.queue) / employee)
     return max(len_queue)
 
 
@@ -105,7 +105,7 @@ def result(iter = 100):
     for i in range(iter):
         basic.append(main(lunchTime = False, employee = 1))
         lunch.append(main(lunchTime = True, employee = 1))
-        employee2.append(main(lunchTime = False, employee = 3))
+        employee2.append(main(lunchTime = False, employee = 2))
     basic_mean = np.mean(basic)
     lunch_mean = np.mean(lunch)
     employee2_mean = np.mean(employee2)
