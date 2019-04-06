@@ -111,16 +111,12 @@ class BinarySearchTree:
             return node
         return self.findMax(node.getRHS())
 
-
     def findMin(self, node=""):
         if node=="":
             node=self.root
         if node.getLSH()=="":
             return node
         return self.findMin(node.getLHS())
-
-
-
 
     def traverseInOrder(self, node=""):
         # 작은 것부터 큰거 순으로 나열한다
