@@ -96,6 +96,60 @@ class BinarySearchTree:
             return node
         else:
             self.find_max(node.getRHS())
+    ########################
+    # depth first traversal#
+    def pre_order_traversal(self, node = None):
+
+        if node == None:
+            node = self.root
+
+        ret = []
+        ret.append(node.value)
+
+        if node.getLHS() != None:
+            ret += self.pre_order_traversal(node.getLHS())
+        if node.getRHS() != None:
+            ret += self.pre_order_traversal(node.getRHS())
+        return ret
+
+    def post_order_traversal(self, node = None):
+        if node == None:
+            node = self.root
+
+        ret = []
+        if node.getLHS() != None:
+            ret += self.pre_order_traversal(node.getLHS())
+        if node.getRHS() != None:
+            ret += self.pre_order_traversal(node.getRHS())
+        ret.append(node.value)
+        return ret
+
+    def in_order_traversal(self, node=None):
+        if node == None:
+            node = self.root
+        ret = []
+        if node.getLHS() != None:
+            ret += self.pre_order_traversal(node.getLHS())
+        ret.append(node.value)
+        if node.getRHS() != None:
+            ret += self.pre_order_traversal(node.getRHS())
+        return ret
+    ##########################
+    # breadth first traversal#
+    def level_order_traversal(self, node = None):
+        if node == None:
+            node = self.root
+        ret = []
+        queue = [node]
+        while queue:
+            root = queue.pop(0)
+            if root is not None:
+                ret.append(root.value)
+                if root.getLHS() != None:
+                    queue.append(root.getLHS())
+                if root.getRHS() != None:
+                    queue.append(root.getRHS())
+        return ret
 
 
 array = [40, 4, 34, 45, 14, 55, 48, 13, 15, 49, 47]
@@ -104,11 +158,39 @@ bst = BinarySearchTree()
 for x in array:
     bst.insert(x)
 
-# Find
 print(bst.search(15)) # True
 print(bst.search(17)) # False
 
-# Delete
-print(bst.delete(55)) # True
-print(bst.delete(14)) # True
-print(bst.delete(11)) # False
+# depth first
+print(bst.pre_order_traversal())   # 40 4 34 14 13 15 45 55 48 47 49
+bst.in_order_traversal()    # 4 13 14 15 34 40 45 47 48 49 55
+bst.post_order_traversal()  # 13 15 14 34 4 47 49 48 55 45 40
+# breadth first
+bst.level_order_traversal() # 40 4 45 34 55 14 48 13 15 47 49
+
+bst.delete(55) # True
+
+# depth first
+bst.pre_order_traversal()   # 40 4 34 14 13 15 45 48 47 49
+bst.in_order_traversal()    # 4 13 14 15 34 40 45 47 48 49
+bst.post_order_traversal()  # 13 15 14 34 4 47 49 48 45 40
+# breadth first
+bst.level_order_traversal() # 40 4 45 34 48 14 47 49 13 15
+
+bst.delete(14) # True
+
+# depth first
+bst.pre_order_traversal()   # 40 4 34 15 13 45 48 47 49
+bst.in_order_traversal()    # 4 13 15 34 40 45 47 48 49
+bst.post_order_traversal()  # 13 15 34 4 47 49 48 45 40
+# breadth first
+bst.level_order_traversal() # 40 4 45 34 48 15 47 49 13
+
+bst.delete(11) # False
+
+# depth first
+bst.pre_order_traversal()   # 40 4 34 15 13 45 48 47 49
+bst.in_order_traversal()    # 4 13 15 34 40 45 47 48 49
+bst.post_order_traversal()  # 13 15 34 4 47 49 48 45 40
+# breadth first
+bst.level_order_traversal() # 40 4 45 34 48 15 47 49 13
