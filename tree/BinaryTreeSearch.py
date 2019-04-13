@@ -151,6 +151,32 @@ class BinarySearchTree:
                     queue.append(root.getRHS())
         return ret
 
+    def print_paths(self, root, path, pathLen):
+        path = []
+        self.print_paths_rec(root, path, 0)
+
+    def print_paths_rec(self, root, path, pathLen):
+
+        if root is None:
+            return
+
+        if len(path) > pathLen:
+            path[pathLen] = root.value
+        else:
+            path.append(root.value)
+
+        pathLen += 1
+
+        if root.getLHS() is None and root.getRHS() is None:
+            self.print_array(path, pathLen)
+        else:
+            self.print_paths_rec(root.getLHS(), path, pathLen)
+            self.print_paths_rec(root.getRHS(), path, pathLen)
+
+    def print_array(self, ints, len):
+        for i in ints[0:len]:
+            print(i, " ", end = " ")
+        print()
 
 array = [40, 4, 34, 45, 14, 55, 48, 13, 15, 49, 47]
 
@@ -194,3 +220,5 @@ bst.in_order_traversal()    # 4 13 15 34 40 45 47 48 49
 bst.post_order_traversal()  # 13 15 34 4 47 49 48 45 40
 # breadth first
 bst.level_order_traversal() # 40 4 45 34 48 15 47 49 13
+
+
