@@ -39,8 +39,6 @@ class Tree:
 
 
 def solution(numbers, target):
-    answer = 0  # the number of solutions
-    num_len = len(numbers)
     numbers = sorted(numbers, reverse=True)
     tree = Tree(numbers, target)
     i = 0
